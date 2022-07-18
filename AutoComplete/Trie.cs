@@ -1,25 +1,43 @@
 ﻿using System;
 
-namespace AutoComplete
+namespace AutoComplete;
+
+public class Trie
 {
-    public class Trie
+    public TrieNode Root;
+
+    public Trie()
     {
-        public TrieNode Root;
+        Root = new TrieNode("\0");
+    }
 
-        public Trie()
+    public void Insert(string word)
+    {
+        var curr = Root;
+        for (var i = 0; i < word.Length; i++)
         {
-            Root = new TrieNode('\0');
+            if (!curr.Children.ContainsKey(word[i])) curr.Children.Add(word[i], new TrieNode(word.Substring(0, i + 1)));
+            curr = curr.Children[word[i]];
+            if (i == word.Length - 1)
+                curr.IsWord = true;
+        }
+    }
+
+    public bool Remove(string word)
+    {
+        var curr = Root;
+        var rootStartingLength = curr.Children.Count;
+        for (var i = 0; i < word.Length; i++)
+        {
+            if (curr.Children.ContainsKey(word[i]))
+                curr.Children.Remove(word[i]);
         }
 
-        public void Insert(string word)
+        if (rootStartingLength == curr.Children.Count)
+            return false;
+        else
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(string word)
-        {
-            // This function is optional
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
