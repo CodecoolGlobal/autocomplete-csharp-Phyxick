@@ -4,11 +4,11 @@ namespace AutoComplete;
 
 public class Trie
 {
-    public TrieNode Root;
+    public TrieNodes Root;
 
     public Trie()
     {
-        Root = new TrieNode("\0");
+        Root = new TrieNodes("\0");
     }
 
     public void Insert(string word)
@@ -16,7 +16,7 @@ public class Trie
         var curr = Root;
         for (var i = 0; i < word.Length; i++)
         {
-            if (!curr.Children.ContainsKey(word[i])) curr.Children.Add(word[i], new TrieNode(word.Substring(0, i + 1)));
+            if (!curr.Children.ContainsKey(word[i])) curr.Children.Add(word[i], new TrieNodes(word.Substring(0, i + 1)));
             curr = curr.Children[word[i]];
             if (i == word.Length - 1)
                 curr.IsWord = true;
