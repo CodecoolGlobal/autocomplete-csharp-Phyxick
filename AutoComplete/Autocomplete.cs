@@ -6,7 +6,7 @@ namespace AutoComplete
     public class Autocomplete : Trie
     {
 
-        private void FindAllChildWords(TrieNode n, List<String> results)
+        private void FindAllChildWords(TrieNodes n, List<String> results)
         {
             if (n.IsWord)
                 results.Add(n.Prefix);
@@ -22,7 +22,7 @@ namespace AutoComplete
             List<String> results = new List<String>();
 
             // Iterate to the end of the prefix
-            TrieNode curr = Root;
+            TrieNodes curr = Root;
             foreach (char c in prefix.ToCharArray())
             {
                 if (curr.Children.ContainsKey(c))
